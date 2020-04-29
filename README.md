@@ -10,7 +10,7 @@ environment.
 * :mag: Course explorer
 * :busts_in_silhouette: Role based administration (admin > organizer > teacher >
   student)
-* :card_box: Multiple classroom support
+* :card_file_box: Multiple classroom support
 * :loudspeaker: Announcement for student registration
 * :email: Notification emails
 
@@ -20,8 +20,9 @@ First:
 $ composer install
 $ yarn install
 $ php artisan key:generate
+$ cp .env.example .env
 ```
-and edit `config/database.php` for yourself.
+and modify `.env` file for yourself.
 
 To start application:
 ```terminal
