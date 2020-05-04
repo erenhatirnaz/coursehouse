@@ -3,6 +3,10 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use App\User;
+use App\Admin;
+use App\Student;
+use App\Teacher;
+use App\Organizer;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
@@ -17,4 +21,20 @@ $factory->define(User::class, function(Faker $faker) {
         'birth_date' => $faker->dateTimeBetween('-40 years', 'now'),
         'remember_token' => Str::random(10),
     ];
+});
+
+$factory->define(Admin::class, function (Faker $faker) {
+    return factory(User::class)->raw([]);
+});
+
+$factory->define(Student::class, function (Faker $faker) {
+    return factory(User::class)->raw([]);
+});
+
+$factory->define(Teacher::class, function (Faker $faker) {
+    return factory(User::class)->raw([]);
+});
+
+$factory->define(Organizer::class, function (Faker $faker) {
+    return factory(User::class)->raw([]);
 });
