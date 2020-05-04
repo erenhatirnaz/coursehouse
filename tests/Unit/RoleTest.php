@@ -2,8 +2,9 @@
 
 namespace Tests\Unit;
 
-use App\Role;
 use App\User;
+use App\Role;
+use App\Roles;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
@@ -27,8 +28,8 @@ class RoleTest extends TestCase
     {
         $adminRole = Role::firstWhere('name', 'admin');
 
-        factory(User::class, 4)->create()->each(function($user) {
-            $user->roles()->attach(1);
+        factory(User::class, 4)->create()->each(function ($user) {
+            $user->roles()->attach(Roles::ADMIN);
         });
 
         $this->assertTrue($adminRole->users()->exists());

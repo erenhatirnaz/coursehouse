@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\User;
+use App\Roles;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
@@ -13,8 +14,8 @@ class UserTest extends TestCase
     public function testItBelongsToManyRoles()
     {
         $user = factory(User::class)->create();
-        $user->roles()->attach(1); // admin
-        $user->roles()->attach(2); // student
+        $user->roles()->attach(Roles::ADMIN);
+        $user->roles()->attach(roles::STUDENT);
 
         $this->assertTrue($user->roles()->exists());
         $this->assertCount(2, $user->roles->toArray());
@@ -23,7 +24,7 @@ class UserTest extends TestCase
     public function testHasRoleFunctionShouldReturnTrueIfUserHasRole()
     {
         $user = factory(User::class)->create();
-        $user->roles()->attach(1); // admin
+        $user->roles()->attach(Roles::ADMIN);
 
         $this->assertTrue($user->hasRole('admin'));
     }
