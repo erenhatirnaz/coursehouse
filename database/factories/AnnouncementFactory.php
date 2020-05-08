@@ -35,7 +35,7 @@ $factory->define(Announcement::class, function (Faker $faker) {
 });
 
 $factory->define(Application::class, function (Faker $faker) {
-    $refApplicationStatus == new ReflectionClass(ApplicationStatus::class);
+    $refApplicationStatus = new ReflectionClass(ApplicationStatus::class);
     $status = collect(array_values($refApplicationStatus->getConstants()));
 
     return [
