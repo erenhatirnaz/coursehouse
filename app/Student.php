@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\ClassRoom;
+use App\Application;
 use Illuminate\Database\Eloquent\Model;
 
 class Student extends User
@@ -24,11 +26,11 @@ class Student extends User
 
     public function classRooms()
     {
-        return $this->belongsToMany('App\ClassRoom', 'class_room_student', 'user_id', 'class_room_id');
+        return $this->belongsToMany(ClassRoom::class, 'class_room_student', 'user_id', 'class_room_id');
     }
 
     public function applications()
     {
-        return $this->hasMany('App\Application')->orderBy('created_at', 'desc');
+        return $this->hasMany(Application::class)->orderBy('created_at', 'desc');
     }
 }

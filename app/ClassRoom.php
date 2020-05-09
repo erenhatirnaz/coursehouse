@@ -2,6 +2,9 @@
 
 namespace App;
 
+use App\Course;
+use App\Student;
+use App\Announcement;
 use App\LessonPeriod;
 use Illuminate\Database\Eloquent\Model;
 
@@ -18,16 +21,16 @@ class ClassRoom extends Model
 
     public function announcements()
     {
-        return $this->hasMany('App\Announcement')->orderBy('created_at', 'desc');
+        return $this->hasMany(Announcement::class)->orderBy('created_at', 'desc');
     }
 
     public function students()
     {
-        return $this->belongsToMany('App\Student', 'class_room_student', 'class_room_id', 'user_id');
+        return $this->belongsToMany(Student::class, 'class_room_student', 'class_room_id', 'user_id');
     }
 
     public function course()
     {
-        return $this->belongsTo('App\Course');
+        return $this->belongsTo(Course::class);
     }
 }

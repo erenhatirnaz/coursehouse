@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\ClassRoom;
+use App\Application;
 use App\PaymentPeriod;
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,11 +25,11 @@ class Announcement extends Model
 
     public function classRoom()
     {
-        return $this->belongsTo('App\ClassRoom');
+        return $this->belongsTo(ClassRoom::class);
     }
 
     public function applications()
     {
-        return $this->hasMany('App\Application');
+        return $this->hasMany(Application::class);
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Student;
+use App\Announcement;
 use App\ApplicationStatus;
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,11 +23,11 @@ class Application extends Model
 
     public function announcement()
     {
-        return $this->belongsTo('App\Announcement');
+        return $this->belongsTo(Announcement::class);
     }
 
     public function student()
     {
-        return $this->belongsTo('App\Student');
+        return $this->belongsTo(Student:class);
     }
 }
