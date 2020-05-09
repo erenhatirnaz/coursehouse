@@ -16,8 +16,8 @@ class Application extends Model
     ];
 
     protected $casts = [
-        'id' => 'uuid',
-        'announcement_id' => 'uuid',
+        'id' => 'string',
+        'announcement_id' => 'string',
         'status' => ApplicationStatus::class,
     ];
 

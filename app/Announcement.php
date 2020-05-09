@@ -17,7 +17,7 @@ class Announcement extends Model
     ];
 
     protected $casts = [
-        'id' => 'uuid',
+        'id' => 'string',
         'starts_at' => 'datetime',
         'ends_at' => 'datetime',
         'payment_period' => PaymentPeriod::class,
