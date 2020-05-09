@@ -21,4 +21,14 @@ class Student extends User
                   ->where('role_user.role_id', Roles::STUDENT);
         });
     }
+
+    public function classRooms()
+    {
+        return $this->belongsToMany('App\ClassRoom', 'class_room_student', 'user_id', 'class_room_id');
+    }
+
+    public function applications()
+    {
+        return $this->hasMany('App\Application')->orderBy('created_at', 'desc');
+    }
 }
