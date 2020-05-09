@@ -40,7 +40,7 @@ $factory->define(ClassRoom::class, function (Faker $faker) {
           . strtoupper($faker->randomLetter);
 
     return [
-        'slug' => Str::slug($name),
+        'slug' => Str::slug($name) . "-" . substr($faker->uuid, 0, 8),
         'course_id' => factory(Course::class)->create()->id,
         'name' => $name,
         'description' => $faker->paragraph,
