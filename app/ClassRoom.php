@@ -15,4 +15,19 @@ class ClassRoom extends Model
     protected $casts = [
         'lesson_period' => LessonPeriod::class,
     ];
+
+    public function announcements()
+    {
+        return $this->hasMany('App\Announcement')->orderBy('created_at', 'desc');
+    }
+
+    public function students()
+    {
+        return $this->belongsToMany('App\Student', 'class_room_student', 'class_room_id', 'user_id');
+    }
+
+    public function course()
+    {
+        return $this->belongsTo('App\Course');
+    }
 }
