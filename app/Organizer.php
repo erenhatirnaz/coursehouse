@@ -21,4 +21,9 @@ class Organizer extends User
                   ->where('role_user.role_id', Roles::ORGANIZER);
         });
     }
+
+    public function courses()
+    {
+        return $this->belongsToMany('App\Course', 'course_organizer', 'user_id', 'course_id');
+    }
 }
