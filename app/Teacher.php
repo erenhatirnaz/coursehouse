@@ -21,4 +21,9 @@ class Teacher extends User
                   ->where('role_user.role_id', Roles::TEACHER);
         });
     }
+
+    public function courses()
+    {
+        return $this->belongsToMany('App\Course', 'course_teacher', 'user_id', 'course_id');
+    }
 }
