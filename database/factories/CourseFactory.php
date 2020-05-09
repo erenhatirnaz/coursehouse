@@ -9,7 +9,7 @@ use App\CourseCategory;
 use Faker\Generator as Faker;
 
 $factory->define(CourseCategory::class, function (Faker $faker) {
-    $name = $faker->sentence;
+    $name = $faker->word . " " . $faker->word;
 
     return [
         'slug' => Str::slug($name),
