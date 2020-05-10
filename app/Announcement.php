@@ -4,7 +4,6 @@ namespace App;
 
 use App\ClassRoom;
 use App\Application;
-use App\PaymentPeriod;
 use Illuminate\Database\Eloquent\Model;
 
 class Announcement extends Model
@@ -20,7 +19,6 @@ class Announcement extends Model
         'id' => 'string',
         'starts_at' => 'datetime',
         'ends_at' => 'datetime',
-        'payment_period' => PaymentPeriod::class,
     ];
 
     public function classRoom()

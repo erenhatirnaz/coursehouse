@@ -5,7 +5,6 @@ namespace App;
 use App\Course;
 use App\Student;
 use App\Announcement;
-use App\LessonPeriod;
 use Illuminate\Database\Eloquent\Model;
 
 class ClassRoom extends Model
@@ -13,10 +12,6 @@ class ClassRoom extends Model
     protected $fillable = [
         'slug', 'name', 'description', 'age_range_min', 'age_range_max', 'quota',
         'lesson_period',
-    ];
-
-    protected $casts = [
-        'lesson_period' => LessonPeriod::class,
     ];
 
     public function announcements()
