@@ -12,6 +12,9 @@ tramp
 /node_modules
 /public/hot
 /public/storage
+/public/css
+/public/js
+/public/mix-manifest.json
 /storage/*.key
 /storage/debugbar
 /vendor
