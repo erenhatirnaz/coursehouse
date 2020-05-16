@@ -12,6 +12,7 @@ tramp
 /node_modules
 /public/hot
 /public/storage
+/public/fonts/
 /public/css
 /public/js
 /public/mix-manifest.json
