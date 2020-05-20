@@ -3,6 +3,7 @@
 return [
     'login' => "Giriş Yap",
     'register' => "Kayıt Ol",
+    'logout' => "Çıkış Yap",
 
     'name' => "Ad",
     'surname' => "Soyad",

@@ -3,6 +3,7 @@
 return [
     'login' => "Login",
     'register' => "Register",
+    'logout' => "Logout",
 
     'name' => "Name",
     'surname' => "Surname",
