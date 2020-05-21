@@ -10,6 +10,10 @@ Route::get('/switchLocale', function () {
     return show_error(501, "Not implemented!");
 })->name('switchLocale');
 
+Route::get('/search', function () {
+    return show_error(501, "Not implemented!");
+})->name('search');
+
 Route::name('course.')->group(function () {
     Route::get('/course/explorer', function () {
         return show_error(501, "Not implemented!");

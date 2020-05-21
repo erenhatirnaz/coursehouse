@@ -49,6 +49,19 @@
                             </li>
                         </ul>
 
+                        <form class="form-inline" action="{{ route('search') }}">
+                            @csrf
+                            <div class="input-group">
+                                <input class="form-control" name="" type="text"
+                                    placeholder="{{ $search_placeholder }}"/>
+                                <div class="input-group-append">
+                                    <a class="btn btn-outline-success" href="">
+                                        <div class="fas fa-search"></div>
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+
                         <!-- Right Side Of Navbar -->
                         <ul class="navbar-nav ml-auto">
                             <!-- Authentication Links -->
