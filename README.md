@@ -1,4 +1,4 @@
-# [WIP] CourseCouse
+# [WIP] CourseHouse
 > Organize your courses
 
 A website script to gives you easy-to-use and full-featured Course Management
