@@ -2,6 +2,7 @@
 
 return [
     'reset_password' => "Parola Sıfırla",
+    'confirm_password' => "Parola Doğrula",
 
     'send_link' => "Parola Sıfırlama Bağlantısı Gönder",
 
@@ -10,6 +11,7 @@ return [
     'throttled' => 'Tekrar denemeden önce lütfen bekleyin.',
     'token' => 'Parola sıfırlama kodu geçersiz.',
     'user' => 'Bu e-posta adresi ile kayıtlı bir üye bulunamadı.',
+    'please_confirm' => "Devam etmeden önce lütfen şifrenizi doğrulayın.",
 
     'mail' => [
         'subject' => "Parola Sıfırlama Bildirimi",

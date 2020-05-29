@@ -2,6 +2,7 @@
 
 return [
     'reset_password' => "Reset Password",
+    'confirm_password' => "Confirm Password",
 
     'send_link' => "Send Password Reset Link",
 
@@ -10,6 +11,7 @@ return [
     'throttled' => 'Please wait before retrying.',
     'token' => 'This password reset token is invalid.',
     'user' => "We can't find a user with that e-mail address.",
+    'please_confirm' => "Please confirm your password before continuing.",
 
     'mail' => [
         'subject' => "Reset Password Notification",
