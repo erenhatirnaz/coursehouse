@@ -150,6 +150,17 @@
                     </div>
                 </div>
             </nav>
+            @auth
+            @if (! Auth::user()->hasVerifiedEmail())
+                <div class="alert alert-danger text-center" role="alert">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    {{ __('verify_email.warning') }}
+                    <a class="btn btn-primary btn-sm" href="{{ route('verification.notice') }}">
+                        {{ __('verify_email.verify') }}
+                    </a>
+                </div>
+            @endif
+            @endauth
 
             <main class="py-4">
                 @yield('content')
