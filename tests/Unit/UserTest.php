@@ -6,6 +6,7 @@ use App\User;
 use App\Roles;
 use Tests\TestCase;
 use App\Notifications\VerifyEmail;
+use App\Notifications\ResetPasswordEmail;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
@@ -46,5 +47,16 @@ class UserTest extends TestCase
         $user->sendEmailVerificationNotification();
 
         Notification::assertSentTo([$user], VerifyEmail::class);
+    }
+
+    public function testItShouldSentPasswordResetEmail()
+    {
+        Notification::fake();
+
+        $user = factory(User::class)->create();
+
+        $this->post('/password/email', ['email' => $user->email]);
+
+        Notification::assertSentTo([$user], ResetPasswordEmail::class);
     }
 }
