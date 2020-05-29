@@ -13,22 +13,21 @@ class ResetPasswordEmail extends ResetPasswordBase
             return call_user_func(static::$toMailCallback, $notifiable);
         }
 
-        return (new MailMessage)
+        return (new MailMessage())
             ->subject(__('passwords.mail.subject'))
             ->line(__('passwords.mail.line1'))
             ->action(
                 __('passwords.mail.action'),
                 url(
-                    config('app.url').route('password.reset', [
+                    config('app.url') . route('password.reset', [
                         'token' => $this->token,
                         'email' => $notifiable->getEmailForPasswordReset()
                     ], false)
                 )
             )
             ->line(__('passwords.mail.line2', [
-                'count' => config('auth.passwords.'.config('auth.defaults.passwords').'.expire')
-            ])
-            )
+                'count' => config('auth.passwords.' . config('auth.defaults.passwords') . '.expire')
+            ]))
             ->line(__('passwords.mail.line3'));
     }
 }
