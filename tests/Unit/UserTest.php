@@ -5,6 +5,8 @@ namespace Tests\Unit;
 use App\User;
 use App\Roles;
 use Tests\TestCase;
+use App\Notifications\VerifyEmail;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class UserTest extends TestCase
@@ -34,5 +36,15 @@ class UserTest extends TestCase
         $user = factory(User::class)->create();
 
         $this->assertFalse($user->hasRole('admin'));
+    }
+
+    public function testItShouldSentVerificationEmail()
+    {
+        Notification::fake();
+
+        $user = factory(User::class)->create();
+        $user->sendEmailVerificationNotification();
+
+        Notification::assertSentTo([$user], VerifyEmail::class);
     }
 }
