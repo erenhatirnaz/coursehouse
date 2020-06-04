@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Student;
+use Carbon\Carbon;
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use App\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
@@ -40,8 +41,12 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
+            'surname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'phone_no' => ['required', 'alpha_dash', 'regex:/[0-9]{3}-[0-9]{3}-[0-9]{4}/', 'unique:users'],
+            'birth_date' => ['required', 'date_format:Y-m-d', 'after:1900-01-01',
+                             'before:' . Carbon::now()->format('Y-m-d')],
         ]);
     }
 
@@ -53,10 +58,13 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        return Student::create([
             'name' => $data['name'],
+            'surname' => $data['surname'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'phone_no' => $data['phone_no'],
+            'birth_date' => $data['birth_date'],
         ]);
     }
 }
