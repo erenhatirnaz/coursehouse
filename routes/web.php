@@ -2,9 +2,7 @@
 
 Auth::routes(['verify' => true]);
 
-Route::get('/', function () {
-    return show_error(501, "Not implemented!");
-})->name('home');
+Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('/switchLocale', function () {
     return show_error(501, "Not implemented!");
