@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Repositories;
+
+use App\MY_MODEL;
+use App\Repositories\MY_REPOSITORY_INTERFACE;
+use Illuminate\Support\Collection;
+
+class MY_REPOSITORY extends BaseRepository implements MY_REPOSITORY_INTERFACE
+{
+    /**
+     * MY_REPOSITORY contructor.
+     *
+     * @param MY_MODEL $model
+     */
+    public function __construct(MY_MODEL $model)
+    {
+        parent::__construct($model);
+    }
+}
