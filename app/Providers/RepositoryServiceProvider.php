@@ -2,11 +2,14 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\ServiceProvider;
+
 use App\Repositories\RepositoryInterface;
 use App\Repositories\BaseRepository;
 use App\Repositories\CourseRepositoryInterface;
 use App\Repositories\CourseRepository;
-use Illuminate\Support\ServiceProvider;
+use App\Repositories\CourseCategoryRepositoryInterface;
+use App\Repositories\CourseCategoryRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -18,5 +21,6 @@ class RepositoryServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(RepositoryInterface::class, BaseRepository::class);
+        $this->app->bind(CourseCategoryRepositoryInterface::class, CourseCategoryRepository::class);
     }
 }
