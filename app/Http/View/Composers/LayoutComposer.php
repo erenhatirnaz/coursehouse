@@ -2,33 +2,30 @@
 
 namespace App\Http\View\Composers;
 
-use App\Course;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Session;
+use App\Repositories\CourseRepositoryInterface;
 
 class LayoutComposer
 {
     /**
      * @var Course
      */
-    protected $course;
+    protected $courses;
 
-    public function __construct(Course $course)
+    public function __construct(CourseRepositoryInterface $course)
     {
-        $this->course = $course;
+        $this->courses = $course;
     }
 
     public function compose(View $view)
     {
-        $random_course = "";
+        $search_placeholder = __('app.search_placeholder');
 
-        if ($this->course->count() > 0) {
-            $random_course = $this->course->all()->random();
+        if ($this->courses->all()->count() > 0) {
+            $search_placeholder = $this->courses->all()->random()['name'];
         }
 
-        $search_placeholder = ($random_course)
-                            ? $random_course['name']
-                            : __('app.search_placeholder');
         $view->with('search_placeholder', $search_placeholder);
     }
 }
