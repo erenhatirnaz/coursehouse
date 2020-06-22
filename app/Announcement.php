@@ -30,4 +30,9 @@ class Announcement extends Model
     {
         return $this->hasMany(Application::class);
     }
+
+    public function scopeFeatured($query)
+    {
+        return $query->where('is_featured', '=', 1)->orderBy('updated_at', 'desc');
+    }
 }
