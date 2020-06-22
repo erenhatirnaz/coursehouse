@@ -10,6 +10,8 @@ use App\Repositories\CourseRepositoryInterface;
 use App\Repositories\CourseRepository;
 use App\Repositories\CourseCategoryRepositoryInterface;
 use App\Repositories\CourseCategoryRepository;
+use App\Repositories\AnnouncementRepositoryInterface;
+use App\Repositories\AnnouncementRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
