@@ -22,8 +22,9 @@ class LayoutComposer
     {
         $search_placeholder = __('app.search_placeholder');
 
-        if ($this->courses->all()->count() > 0) {
-            $search_placeholder = $this->courses->all()->random()['name'];
+        $courses = $this->courses->all();
+        if ($courses->count() > 0) {
+            $search_placeholder = $courses->random()['name'];
         }
 
         $view->with('search_placeholder', $search_placeholder);
