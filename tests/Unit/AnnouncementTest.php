@@ -47,4 +47,30 @@ class AnnouncementTest extends TestCase
         $this->assertEquals($application1->id, $announcement->applications[0]->id);
         $this->assertEquals($application2->id, $announcement->applications[1]->id);
     }
+
+    public function testLinkAttributeShouldReturnRoute()
+    {
+        $announcement = factory(Announcement::class)->create([
+            'title' => 'foobar',
+            'slug' => 'foobar'
+        ]);
+
+        $this->assertStringContainsString("/announcement/foobar", $announcement->link);
+    }
+
+    public function testPosterImageAttributeShouldReturnLocalPathIfNotStartsWithHttp()
+    {
+        $announcement = factory(Announcement::class)->create([
+            "poster_image_path" => "foobar.png"
+        ]);
+
+        $this->assertStringContainsString("/img/announcements/foobar.png", $announcement->poster_image);
+    }
+
+    public function testPosterImageAttributeShouldReturnRemoteUrlIfStartsWithHttp()
+    {
+        $announcement = factory(Announcement::class)->create();
+
+        $this->assertStringStartsWith("https://", $announcement->poster_image);
+    }
 }
