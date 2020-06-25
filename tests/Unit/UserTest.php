@@ -59,4 +59,14 @@ class UserTest extends TestCase
 
         Notification::assertSentTo([$user], ResetPasswordEmail::class);
     }
+
+    public function testFullNameAttributeSouldConcatNameAndSurname()
+    {
+        $user = factory(User::class)->create([
+            'name' => "Foo",
+            "surname" => "Bar",
+        ]);
+
+        $this->assertEquals("Foo Bar", $user->full_name);
+    }
 }

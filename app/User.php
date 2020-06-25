@@ -60,4 +60,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return ($this->roles->firstWhere('name', strtolower($roleName))) ? true : false;
     }
+
+    public function getFullNameAttribute()
+    {
+        return "{$this->name} {$this->surname}";
+    }
 }
