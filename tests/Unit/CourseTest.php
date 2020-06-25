@@ -56,4 +56,30 @@ class CourseTest extends TestCase
         $this->assertTrue($course->classRooms()->exists());
         $this->assertCount(4, $course->classRooms->toArray());
     }
+
+    public function testLinkAttributeShouldReturnRoute()
+    {
+        $course = factory(Course::class)->create([
+            'name' => 'foobar',
+            'slug' => 'foobar'
+        ]);
+
+        $this->assertStringContainsString("/course/foobar", $course->link);
+    }
+
+    public function testImageAttributeShouldReturnLocalPathIfNotStartsWithHttp()
+    {
+        $course = factory(Course::class)->create([
+            "image_path" => "foobar.png"
+        ]);
+
+        $this->assertStringContainsString("/img/courses/foobar.png", $course->image);
+    }
+
+    public function testImageAttributeShouldReturnRemoteUrlIfStartsWithHttp()
+    {
+        $course = factory(Course::class)->create();
+
+        $this->assertStringStartsWith("https://", $course->image);
+    }
 }
