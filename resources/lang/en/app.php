@@ -2,6 +2,14 @@
 
 return [
     'required' => "Required",
+    'details' => "Details",
+    'see_all' => "See All",
+    'title' => "Title",
+    'class_room' => "Class Room",
+    'quota' => "Quota",
+    'deadline' => "Deadline",
+    'price' => "Price",
+
     'courses' => "Courses",
     'announcements' => "Announcements",
 

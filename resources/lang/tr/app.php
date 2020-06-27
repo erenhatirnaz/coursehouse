@@ -2,6 +2,14 @@
 
 return [
     'required' => "Gerekli",
+    'see_all' => "Hepsini Gör",
+    'details' => "Detaylar",
+    'title' => "Başlık",
+    'class_room' => "Sınıf",
+    'quota' => "Kota",
+    'deadline' => "Son Başvuru Tarihi",
+    'price' => "Ücret",
+
     'courses' => "Kurslar",
     'announcements' => "Duyurular",
 
