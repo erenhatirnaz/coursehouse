@@ -26,13 +26,19 @@ class AnnouncementRepository extends BaseRepository implements AnnouncementRepos
         $this->cache = $cache;
     }
 
+    public function allWithRelations(array $relations): Collection
+    {
+        return $this->model->with($relations)->get();
+    }
+
     public function featured(int $limit): Collection
     {
         return $this->cache->remember(
             'announcements.featured',
             now()->addMinutes(10),
-            function() use ($limit) {
+            function () use ($limit) {
                 return $this->model->featured()->limit($limit)->get();
-            });
+            }
+        );
     }
 }

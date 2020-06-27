@@ -2,13 +2,14 @@
 
 namespace App\Repositories;
 
-use App\Course;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 interface CourseRepositoryInterface
 {
     public function all(): Collection;
+
+    public function allWithRelations(array $relations): Collection;
 
     public function create(array $attributes): Model;
 
