@@ -28,5 +28,8 @@ class LayoutComposer
         }
 
         $view->with('search_placeholder', $search_placeholder);
+
+        $newLanguage = (Session::get('locale') == 'en') ? "tr" : "en";
+        $view->with('newLanguage', $newLanguage);
     }
 }

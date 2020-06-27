@@ -18,5 +18,7 @@ return [
 
     'search_placeholder' => "Search course...",
 
+    'switch_language' => "Site dilini Türkçe olarak değiştir",
+
     'dateformat_birthdate' => "MONTH/DAY/YEAR",
 ];

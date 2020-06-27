@@ -166,6 +166,13 @@
 <main class="py-4">
     @yield('content')
 </main>
+
+<footer class="footer text-center mt-3 p-3 bg-white shadow-sm">
+    <a href="{{ route('switchLocale', ['lang' => $newLanguage]) }}" class="btn btn-link text-muted">
+        {{ __('app.switch_language') }}
+    </a>
+</footer>
+
 </div>
 </body>
 </html>

@@ -18,5 +18,7 @@ return [
 
     'search_placeholder' => "Kurs ara...",
 
+    'switch_language' => "Change site language to English",
+
     'dateformat_birthdate' => "AY/GÜN/YIL",
 ];
