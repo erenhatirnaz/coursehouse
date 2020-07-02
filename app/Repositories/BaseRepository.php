@@ -37,6 +37,8 @@ class BaseRepository implements RepositoryInterface
     {
         $record = $this->show($id);
         $record->update($attributes);
+
+        return $record;
     }
 
     public function delete(int $id)
