@@ -41,9 +41,9 @@ class BaseRepository implements RepositoryInterface
         return $record;
     }
 
-    public function delete(int $id)
+    public function delete($ids)
     {
-        return $this->model->destory($id);
+        return ($this->model->destroy($ids) > 0) ? true : false;
     }
 
     public function show(int $id): ?Model

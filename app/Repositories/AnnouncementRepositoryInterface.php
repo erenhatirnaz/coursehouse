@@ -15,7 +15,7 @@ interface AnnouncementRepositoryInterface
 
     public function update(array $attributes, int $id): ?Model;
 
-    public function delete(int $id);
+    public function delete($ids);
 
     public function show(int $id): ?Model;
 
