@@ -48,6 +48,14 @@ class BaseRepository implements RepositoryInterface
 
     public function delete($ids)
     {
+        if (gettype($ids) != "array") {
+            $ids = [$ids];
+        }
+
+        foreach ($ids as $id) {
+            $this->show($id);
+        }
+
         return ($this->model->destroy($ids) > 0) ? true : false;
     }
 
