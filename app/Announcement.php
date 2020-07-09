@@ -11,10 +11,12 @@ class Announcement extends Model
 {
     public $incrementing = false;
 
-    protected $fillable = [
-        'id', 'slug', 'title', 'description', 'poster_image_path', 'starts_at', 'ends_at',
-        'quota', 'price', 'payment_period', 'is_featured',
-    ];
+    /**
+     * All fields are fillable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
 
     protected $casts = [
         'id' => 'string',
