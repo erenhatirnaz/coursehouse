@@ -38,7 +38,7 @@ class BaseRepository implements RepositoryInterface
         return $this->model->create($attributes);
     }
 
-    public function update(array $attributes, int $id): ?Model
+    public function update(array $attributes, $id): ?Model
     {
         $record = $this->show($id);
         $record->update($attributes);
@@ -51,7 +51,7 @@ class BaseRepository implements RepositoryInterface
         return ($this->model->destroy($ids) > 0) ? true : false;
     }
 
-    public function show(int $id): ?Model
+    public function show($id): ?Model
     {
         return $this->model->findOrFail($id);
     }
