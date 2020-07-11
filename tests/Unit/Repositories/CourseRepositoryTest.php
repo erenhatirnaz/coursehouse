@@ -109,13 +109,11 @@ class CourseRepositoryTest extends TestCase
     public function testItShouldBeAbleToDeleteACourse()
     {
         $course = factory(Course::class)->create();
-        $course_id = $course->id;
 
-        $result = $this->courses->delete($course_id);
+        $result = $this->courses->delete($course->id);
 
         $this->assertTrue($result);
-        $this->expectException(ModelNotFoundException::class);
-        $this->expectExceptionMessage("No query results for model [App\Course] 1");
-        $this->courses->show($course_id);
+        $this->assertDeleted('courses', $course->toArray());
+    }
     }
 }

@@ -130,14 +130,11 @@ class AnnouncementRepositoryTest extends TestCase
     public function testItShouldBeAbleToDeleteAnAnnouncement()
     {
         $announcement = factory(Announcement::class)->create();
-        $announcement_id = $announcement->id;
 
-        $result = $this->announcements->delete($announcement_id);
+        $result = $this->announcements->delete($announcement->id);
 
         $this->assertTrue($result);
-        $this->expectException(ModelNotFoundException::class);
-        $this->expectExceptionMessage("No query results for model [App\Announcement] {$announcement_id}");
-        $this->announcements->show($announcement_id);
+        $this->assertDeleted('announcements', $announcement->toArray());
     }
 
     public function testDeleteMethodShouldThrowNotFoundExceptionIfAnyGivenIdIsNotExists()
