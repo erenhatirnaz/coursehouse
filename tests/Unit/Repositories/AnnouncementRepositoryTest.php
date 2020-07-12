@@ -7,9 +7,11 @@ use Tests\TestCase;
 use App\Announcement;
 use App\PaymentPeriod;
 use Illuminate\Support\Str;
+use Illuminate\Database\QueryException;
 use App\Repositories\AnnouncementRepositoryInterface;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\Eloquent\RelationNotFoundException;
 
 class AnnouncementRepositoryTest extends TestCase
 {
@@ -63,6 +65,16 @@ class AnnouncementRepositoryTest extends TestCase
         $this->assertArrayHasKey("class_room", $announcementsWithRelations[0]->toArray());
     }
 
+    public function testItShouldThrowRelationNotFoundExceptionIfAnyGivenRelationIsInvalid()
+    {
+        factory(Announcement::class)->create();
+
+        $this->expectException(RelationNotFoundException::class);
+        $this->expectExceptionMessage("Call to undefined relationship [foo] on model [App\Announcement].");
+
+        $this->announcements->allWithRelations(['foo', 'bar']);
+    }
+
     public function testItShouldBeAbleToCreateAnAnnouncement()
     {
         $classRoom = factory(ClassRoom::class)->create();
@@ -90,6 +102,17 @@ class AnnouncementRepositoryTest extends TestCase
             "title" => $announcement["title"],
             "slug" => $announcement["slug"],
         ]);
+    }
+
+    public function testItShouldThrowQueryExceptionIfGivenSlugIsAlreadyExists()
+    {
+        $announcement = factory(Announcement::class)->make();
+
+        $this->expectException(QueryException::class);
+        $this->expectExceptionMessageMatches("/^(?=.*UNIQUE)(?=.*slug)(?=.*{$announcement->slug}).*$/");
+
+        $this->announcements->create($announcement->toArray());
+        $this->announcements->create($announcement->toArray());
     }
 
     public function testItShouldBeAbleToUpdateAnnouncement()
