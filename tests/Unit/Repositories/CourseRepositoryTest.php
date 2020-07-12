@@ -4,9 +4,11 @@ namespace Tests\Unit\Repositories;
 
 use App\Course;
 use Tests\TestCase;
+use Illuminate\Database\QueryException;
 use App\Repositories\CourseRepositoryInterface;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\Eloquent\RelationNotFoundException;
 
 class CourseRepositoryTest extends TestCase
 {
@@ -63,6 +65,16 @@ class CourseRepositoryTest extends TestCase
         $this->assertArrayHasKey("teachers", $coursesWithRelations[0]->toArray());
     }
 
+    public function testItShouldThrowRelationNotFoundExceptionIfAnyGivenRelationIsInvalid()
+    {
+        factory(Course::class, 5)->create();
+
+        $this->expectException(RelationNotFoundException::class);
+        $this->expectExceptionMessage("Call to undefined relationship [foo] on model [App\Course].");
+
+        $this->courses->allWithRelations(['foo', 'bar']);
+    }
+
     public function testItShouldBeAbleToCreateACourse()
     {
         $course = new Course();
@@ -79,6 +91,18 @@ class CourseRepositoryTest extends TestCase
         $this->assertEquals($course->slug, $courseDb->slug);
         $this->assertEquals($course->description, $courseDb->description);
         $this->assertEquals($course->image_path, $courseDb->image_path);
+    }
+
+    public function testItShouldThrowQueryExceptionIfGivenSlugIsAlreadyExists()
+    {
+        $course = factory(Course::class)->make();
+
+        $this->expectException(QueryException::class);
+        $this->expectExceptionMessageMatches("/^(?=.*UNIQUE)(?=.*slug)(?=.*{$course->slug}).*$/");
+        // TODO: Implement ModelAlreadyExistsException
+
+        $this->courses->create($course->toArray());
+        $this->courses->create($course->toArray());
     }
 
     public function testItShouldBeAbleToUpdateCourse()
@@ -115,5 +139,14 @@ class CourseRepositoryTest extends TestCase
         $this->assertTrue($result);
         $this->assertDeleted('courses', $course->toArray());
     }
+
+    public function testDeleteMethodShouldThrowModelNotFoundExceptionIfAnyGivenIdIsNotExists()
+    {
+        $courses = factory(Course::class, 2)->create();
+
+        $this->expectException(ModelNotFoundException::class);
+        $this->expectExceptionMessage("No query results for model [App\Course] 123");
+
+        $this->courses->delete([$courses[0]->id, 123, $courses[1]->id]);
     }
 }
