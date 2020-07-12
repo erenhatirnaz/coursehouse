@@ -4,9 +4,11 @@ namespace Tests\Unit\Repositories;
 
 use Tests\TestCase;
 use App\CourseCategory;
+use Illuminate\Database\QueryException;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use App\Repositories\CourseCategoryRepositoryInterface;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Database\Eloquent\RelationNotFoundException;
 
 class CourseCategoryRepositoryTest extends TestCase
 {
@@ -30,6 +32,26 @@ class CourseCategoryRepositoryTest extends TestCase
 
         $this->assertNotEmpty($courseCategories);
         $this->assertCount(6, $courseCategories);
+    }
+
+    public function testItShouldReturnAllCourseCategoriesWithRelatedEntities()
+    {
+        factory(CourseCategory::class, 1)->create();
+
+        $courseCategoriesWithRelations = $this->courseCategories->allWithRelations(['courses']);
+
+        $this->assertNotEmpty($courseCategoriesWithRelations);
+        $this->assertArrayHasKey("courses", $courseCategoriesWithRelations[0]);
+    }
+
+    public function testItShouldThrowRelationNotFoundExceptionIfAnyGivenRelationIsInvalid()
+    {
+        factory(CourseCategory::class, 1)->create();
+
+        $this->expectException(RelationNotFoundException::class);
+        $this->expectExceptionMessage("Call to undefined relationship [foo] on model [App\CourseCategory].");
+
+        $this->courseCategories->allWithRelations(['foo', 'bar']);
     }
 
     public function testItShouldReturnACourseCategoryById()
@@ -68,6 +90,17 @@ class CourseCategoryRepositoryTest extends TestCase
             "slug" => "foobar-baz",
             "name" => "Foobar Baz",
         ]);
+    }
+
+    public function testItShouldThrowQueryExceptionIfGivenSlugIsAlreadyExists()
+    {
+        $courseCategory = factory(CourseCategory::class)->make();
+
+        $this->expectException(QueryException::class);
+        $this->expectExceptionMessageMatches("/^(?=.*UNIQUE)(?=.*slug)(?=.*{$courseCategory->slug}).*$/");
+
+        $this->courseCategories->create($courseCategory->toArray());
+        $this->courseCategories->create($courseCategory->toArray());
     }
 
     public function testItShouldBeAbleToUpdateACourseCategory()
