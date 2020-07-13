@@ -17,9 +17,4 @@ class CourseRepository extends BaseRepository implements CourseRepositoryInterfa
     {
         parent::__construct($model);
     }
-
-    public function allWithRelations(array $relations): Collection
-    {
-        return $this->model->with($relations)->get();
-    }
 }

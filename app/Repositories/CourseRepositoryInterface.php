@@ -13,9 +13,9 @@ interface CourseRepositoryInterface
 
     public function create(array $attributes): Model;
 
-    public function update(array $attributes, int $id): ?Model;
+    public function update(array $attributes, $id): ?Model;
 
-    public function delete(int $id);
+    public function delete($ids);
 
-    public function show(int $id): ?Model;
+    public function show($id): ?Model;
 }
