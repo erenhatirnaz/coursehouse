@@ -26,7 +26,7 @@ class AnnouncementRepository extends BaseRepository implements AnnouncementRepos
         $this->cache = $cache;
     }
 
-    public function featured(int $limit): Collection
+    public function featured(int $limit = 10): Collection
     {
         return $this->cache->remember(
             'announcements.featured',

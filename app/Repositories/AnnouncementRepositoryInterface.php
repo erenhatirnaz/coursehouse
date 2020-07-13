@@ -19,5 +19,5 @@ interface AnnouncementRepositoryInterface
 
     public function show($id): ?Model;
 
-    public function featured(int $limit): Collection;
+    public function featured(int $limit = 10): Collection;
 }

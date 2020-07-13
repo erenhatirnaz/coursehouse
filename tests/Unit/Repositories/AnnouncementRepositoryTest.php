@@ -7,6 +7,7 @@ use Tests\TestCase;
 use App\Announcement;
 use App\PaymentPeriod;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\QueryException;
 use App\Repositories\AnnouncementRepositoryInterface;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -168,5 +169,24 @@ class AnnouncementRepositoryTest extends TestCase
         $this->expectException(ModelNotFoundException::class);
         $this->expectExceptionMessage("No query results for model [App\Announcement] {$uuid}");
         $this->announcements->delete([$announcements[0]->id, $uuid, $announcements[1]->id]);
+    }
+
+    public function testItShouldCacheAndReturnAllFeaturedAnnouncements()
+    {
+        factory(Announcement::class, 3)->create(['is_featured' => false]);
+        factory(Announcement::class, 4)->create(['is_featured' => true]);
+
+        $featuredAnnouncements = $this->announcements->featured();
+
+        $this->assertNotEmpty($featuredAnnouncements);
+        $this->assertCount(4, $featuredAnnouncements);
+        $this->assertTrue(
+            $featuredAnnouncements[0]->is_featured == 1,
+            "`\$featuredAnnouncements[0]->is_featured == 1` must be true, but got false."
+        );
+        $this->assertTrue(
+            Cache::has('announcements.featured'),
+            "[Cache(key='announcements.featured')] must not be empty."
+        );
     }
 }
