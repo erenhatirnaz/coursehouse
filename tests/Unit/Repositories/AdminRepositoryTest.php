@@ -104,22 +104,22 @@ class AdminRepositoryTest extends TestCase
 
     public function testItShouldBeAbleToUpdateAnAdmin()
     {
-        $admin = factory(Admin::class)->create();
+        $adminId = factory(Admin::class)->create()->id;
 
         $attributes = [
             "name" => "John",
             "surname" => "Doe",
             "email" => "john.doe@example.net",
         ];
-        $adminDb = $this->admins->update($attributes, $admin->id);
+        $admin = $this->admins->update($attributes, $adminId);
 
-        $this->assertNotEmpty($adminDb);
+        $this->assertNotEmpty($admin);
         $this->assertDatabaseHas("users", [
-            "email" => $adminDb->email
+            "email" => $attributes["email"],
         ]);
-        $this->assertTrue($adminDb->wasChanged("name"));
-        $this->assertTrue($adminDb->wasChanged("surname"));
-        $this->assertTrue($adminDb->wasChanged("email"));
+        $this->assertTrue($admin->wasChanged("name"));
+        $this->assertTrue($admin->wasChanged("surname"));
+        $this->assertTrue($admin->wasChanged("email"));
     }
 
     public function testItShouldBeAbleToDeleteAnAdmin()

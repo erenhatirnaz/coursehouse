@@ -104,22 +104,22 @@ class StudentRepositoryTest extends TestCase
 
     public function testItShouldBeAbleToUpdateAStudent()
     {
-        $student = factory(Student::class)->create();
+        $studentId = factory(Student::class)->create()->id;
 
         $attributes = [
             "name" => "John",
             "surname" => "Doe",
             "email" => "john.doe@example.net",
         ];
-        $studentDb = $this->students->update($attributes, $student->id);
+        $student = $this->students->update($attributes, $studentId);
 
-        $this->assertNotEmpty($studentDb);
+        $this->assertNotEmpty($student);
         $this->assertDatabaseHas("users", [
-            "email" => $studentDb->email
+            "email" => $attributes["email"],
         ]);
-        $this->assertTrue($studentDb->wasChanged("name"));
-        $this->assertTrue($studentDb->wasChanged("surname"));
-        $this->assertTrue($studentDb->wasChanged("email"));
+        $this->assertTrue($student->wasChanged("name"));
+        $this->assertTrue($student->wasChanged("surname"));
+        $this->assertTrue($student->wasChanged("email"));
     }
 
     public function testItShouldBeAbleToDeleteAnStudent()
