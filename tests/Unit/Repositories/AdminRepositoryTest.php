@@ -32,6 +32,7 @@ class AdminRepositoryTest extends TestCase
         $this->assertNotEmpty($admins);
         $this->assertCount(2, $admins);
         $this->assertTrue($admins[0]->hasRole('admin'));
+        $this->assertInstanceOf(Admin::class, $admins[0]);
     }
 
     public function testItShouldReturnAllAdminsWithRelatedEntities()
@@ -43,6 +44,7 @@ class AdminRepositoryTest extends TestCase
         $this->assertNotEmpty($allWithRelations);
         $this->assertCount(3, $allWithRelations);
         $this->assertArrayHasKey("roles", $allWithRelations[0]->toArray());
+        $this->assertNotEmpty($allWithRelations[0]->roles);
     }
 
     public function testItShouldThrowRelationNotFoundExceptionIfAnyGivenRelationIsInvalid()
@@ -57,9 +59,9 @@ class AdminRepositoryTest extends TestCase
 
     public function testItShouldReturnAnAdminById()
     {
-        $createdAdmin = factory(Admin::class)->create(["name" => "John", "surname" => "Doe"]);
+        $adminId = factory(Admin::class)->create(["name" => "John", "surname" => "Doe"])->id;
 
-        $admin = $this->admins->show($createdAdmin->id);
+        $admin = $this->admins->show($adminId);
 
         $this->assertNotEmpty($admin);
         $this->assertEquals("John", $admin->name);

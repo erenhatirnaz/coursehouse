@@ -32,6 +32,7 @@ class UserRepositoryTest extends TestCase
 
         $this->assertNotEmpty($users);
         $this->assertCount(4, $users);
+        $this->assertInstanceOf(User::class, $users[0]);
     }
 
     public function testItShouldReturnAllUsersWithRelatedEntities()
@@ -44,7 +45,7 @@ class UserRepositoryTest extends TestCase
         $this->assertNotEmpty($allWithRelations);
         $this->assertCount(5, $allWithRelations);
         $this->assertArrayHasKey('roles', $allWithRelations[0]->toArray());
-        $this->assertNotEmpty($allWithRelations[0]->roles->toArray());
+        $this->assertNotEmpty($allWithRelations[0]->roles);
     }
 
     public function testItShouldThrowRelationNotFoundExceptionIfAnyGivenRelationIsInvalid()
@@ -59,9 +60,9 @@ class UserRepositoryTest extends TestCase
 
     public function testItShouldReturnAnUserById()
     {
-        $createdUser = factory(User::class)->create(["name" => "John", "surname" => "Doe"]);
+        $userId = factory(User::class)->create(["name" => "John", "surname" => "Doe"])->id;
 
-        $user = $this->users->show($createdUser->id);
+        $user = $this->users->show($userId);
 
         $this->assertNotEmpty($user);
         $this->assertEquals("John", $user->name);

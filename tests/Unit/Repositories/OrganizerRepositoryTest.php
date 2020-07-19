@@ -33,6 +33,7 @@ class OrganizerRepositoryTest extends TestCase
         $this->assertNotEmpty($organizers);
         $this->assertCount(4, $organizers);
         $this->assertTrue($organizers[0]->hasRole("organizer"));
+        $this->assertInstanceOf(Organizer::class, $organizers[0]);
     }
 
     public function testItShouldReturnAllOrganizersWithRelatedEntities()
@@ -63,9 +64,9 @@ class OrganizerRepositoryTest extends TestCase
 
     public function testItShouldReturnAnOrganizerById()
     {
-        $createdOrganizer = factory(Organizer::class)->create(["name" => "John", "surname" => "Doe"]);
+        $organizerId = factory(Organizer::class)->create(["name" => "John", "surname" => "Doe"])->id;
 
-        $organizer = $this->organizers->show($createdOrganizer->id);
+        $organizer = $this->organizers->show($organizerId);
 
         $this->assertNotEmpty($organizer);
         $this->assertEquals("John", $organizer->name);

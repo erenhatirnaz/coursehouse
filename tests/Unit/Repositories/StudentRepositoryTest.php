@@ -32,6 +32,7 @@ class StudentRepositoryTest extends TestCase
         $this->assertNotEmpty($students);
         $this->assertCount(5, $students);
         $this->assertTrue($students[0]->hasRole('student'));
+        $this->assertInstanceOf(Student::class, $students[0]);
     }
 
     public function testItShouldReturnAllStudentsWithRelatedEntities()
@@ -52,14 +53,14 @@ class StudentRepositoryTest extends TestCase
         $this->expectException(RelationNotFoundException::class);
         $this->expectExceptionMessage("Call to undefined relationship [foobar] on model [App\Student].");
 
-        $this->students->allWithRelations(['applications', 'foobar']);
+        $this->students->allWithRelations(['applications', 'foobar', 'roles']);
     }
 
     public function testItShouldReturnAnStudentById()
     {
-        $createdStudent = factory(Student::class)->create(["name" => "John", "surname" => "Doe"]);
+        $studentId = factory(Student::class)->create(["name" => "John", "surname" => "Doe"])->id;
 
-        $student = $this->students->show($createdStudent->id);
+        $student = $this->students->show($studentId);
 
         $this->assertNotEmpty($student);
         $this->assertEquals("John", $student->name);
