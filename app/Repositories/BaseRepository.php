@@ -2,9 +2,10 @@
 
 namespace App\Repositories;
 
+use InvalidArgumentException;
 use Illuminate\Support\Collection;
-use App\Repositories\RepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
+use App\Repositories\RepositoryInterface;
 
 class BaseRepository implements RepositoryInterface
 {
@@ -35,6 +36,10 @@ class BaseRepository implements RepositoryInterface
 
     public function create(array $attributes): Model
     {
+        if (empty($attributes)) {
+            throw new InvalidArgumentException("All required fields must be given. Empty array isn't allowed!");
+        }
+
         return $this->model->create($attributes);
     }
 

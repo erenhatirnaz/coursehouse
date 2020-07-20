@@ -4,6 +4,7 @@ namespace Tests\Unit\Repositories;
 
 use App\Student;
 use Tests\TestCase;
+use InvalidArgumentException;
 use Illuminate\Database\QueryException;
 use App\Repositories\StudentRepositoryInterface;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -56,7 +57,7 @@ class StudentRepositoryTest extends TestCase
         $this->students->allWithRelations(['applications', 'foobar', 'roles']);
     }
 
-    public function testItShouldReturnAnStudentById()
+    public function testItShouldReturnAStudentById()
     {
         $studentId = factory(Student::class)->create(["name" => "John", "surname" => "Doe"])->id;
 
@@ -91,6 +92,14 @@ class StudentRepositoryTest extends TestCase
         ]);
     }
 
+    public function testItShouldThrowInvalidArgumentExceptionIfGivenArrayIsEmpty()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage("All required fields must be given. Empty array isn't allowed!");
+
+        $this->students->create([]);
+    }
+
     public function testItShouldThrowQueryExceptionIfGivenEmailIsAlreadyExists()
     {
         $attributes = factory(Student::class)->make(["phone_no" => null]);
@@ -123,7 +132,7 @@ class StudentRepositoryTest extends TestCase
         $this->assertTrue($student->wasChanged("email"));
     }
 
-    public function testItShouldBeAbleToDeleteAnStudent()
+    public function testItShouldBeAbleToDeleteAStudent()
     {
         $student = factory(Student::class)->create();
 

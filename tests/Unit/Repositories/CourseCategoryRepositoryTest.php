@@ -4,6 +4,7 @@ namespace Tests\Unit\Repositories;
 
 use Tests\TestCase;
 use App\CourseCategory;
+use InvalidArgumentException;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use App\Repositories\CourseCategoryRepositoryInterface;
@@ -90,6 +91,14 @@ class CourseCategoryRepositoryTest extends TestCase
             "slug" => "foobar-baz",
             "name" => "Foobar Baz",
         ]);
+    }
+
+    public function testItShouldThrowInvalidArgumentExceptionIfGivenArrayIsEmpty()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage("All required fields must be given. Empty array isn't allowed!");
+
+        $this->courseCategories->create([]);
     }
 
     public function testItShouldThrowQueryExceptionIfGivenSlugIsAlreadyExists()

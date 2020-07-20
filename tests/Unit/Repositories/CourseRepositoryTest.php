@@ -4,6 +4,7 @@ namespace Tests\Unit\Repositories;
 
 use App\Course;
 use Tests\TestCase;
+use InvalidArgumentException;
 use Illuminate\Database\QueryException;
 use App\Repositories\CourseRepositoryInterface;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -93,6 +94,14 @@ class CourseRepositoryTest extends TestCase
         $this->assertEquals($course->image_path, $courseDb->image_path);
     }
 
+    public function testItShouldThrowInvalidArgumentExceptionIfGivenArrayIsEmpty()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage("All required fields must be given. Empty array isn't allowed!");
+
+        $this->courses->create([]);
+    }
+
     public function testItShouldThrowQueryExceptionIfGivenSlugIsAlreadyExists()
     {
         $course = factory(Course::class)->make();
@@ -105,7 +114,7 @@ class CourseRepositoryTest extends TestCase
         $this->courses->create($course->toArray());
     }
 
-    public function testItShouldBeAbleToUpdateCourse()
+    public function testItShouldBeAbleToUpdateACourse()
     {
         $course = new Course();
         $course->name = "foobar";

@@ -5,6 +5,7 @@ namespace Tests\Unit\Repositories;
 use App\Course;
 use App\Teacher;
 use Tests\TestCase;
+use InvalidArgumentException;
 use Illuminate\Database\QueryException;
 use App\Repositories\TeacherRepositoryInterface;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -95,6 +96,14 @@ class TeacherRepositoryTest extends TestCase
             "email" => $attributes->email,
             "password" => $attributes->password,
         ]);
+    }
+
+    public function testItShouldThrowInvalidArgumentExceptionIfGivenArrayIsEmpty()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage("All required fields must be given. Empty array isn't allowed!");
+
+        $this->teachers->create([]);
     }
 
     public function testItShouldThrowQueryExceptionIfGivenEmailIsAlreadyExists()

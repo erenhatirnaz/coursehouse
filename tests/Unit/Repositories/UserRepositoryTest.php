@@ -37,7 +37,6 @@ class UserRepositoryTest extends TestCase
 
     public function testItShouldReturnAllUsersWithRelatedEntities()
     {
-        // TODO: The User model must have default roles.
         factory(Student::class, 5)->create();
 
         $allWithRelations = $this->users->allWithRelations(['roles']);

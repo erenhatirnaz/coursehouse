@@ -7,6 +7,7 @@ use Tests\TestCase;
 use App\Announcement;
 use App\PaymentPeriod;
 use Illuminate\Support\Str;
+use InvalidArgumentException;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\QueryException;
 use App\Repositories\AnnouncementRepositoryInterface;
@@ -105,6 +106,14 @@ class AnnouncementRepositoryTest extends TestCase
         ]);
     }
 
+    public function testItShouldThrowInvalidArgumentExceptionIfGivenArrayIsEmpty()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage("All required fields must be given. Empty array isn't allowed!");
+
+        $this->announcements->create([]);
+    }
+
     public function testItShouldThrowQueryExceptionIfGivenSlugIsAlreadyExists()
     {
         $announcement = factory(Announcement::class)->make();
@@ -116,7 +125,7 @@ class AnnouncementRepositoryTest extends TestCase
         $this->announcements->create($announcement->toArray());
     }
 
-    public function testItShouldBeAbleToUpdateAnnouncement()
+    public function testItShouldBeAbleToUpdateAnAnnouncement()
     {
         $classRoom = factory(ClassRoom::class)->create();
 
