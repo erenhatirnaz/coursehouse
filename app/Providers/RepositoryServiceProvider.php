@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-
 use App\Repositories\RepositoryInterface;
 use App\Repositories\BaseRepository;
 use App\Repositories\CourseRepositoryInterface;
@@ -12,6 +11,16 @@ use App\Repositories\CourseCategoryRepositoryInterface;
 use App\Repositories\CourseCategoryRepository;
 use App\Repositories\AnnouncementRepositoryInterface;
 use App\Repositories\AnnouncementRepository;
+use App\Repositories\UserRepositoryInterface;
+use App\Repositories\UserRepository;
+use App\Repositories\StudentRepositoryInterface;
+use App\Repositories\StudentRepository;
+use App\Repositories\AdminRepositoryInterface;
+use App\Repositories\AdminRepository;
+use App\Repositories\OrganizerRepositoryInterface;
+use App\Repositories\OrganizerRepository;
+use App\Repositories\TeacherRepositoryInterface;
+use App\Repositories\TeacherRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -26,5 +35,10 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(CourseCategoryRepositoryInterface::class, CourseCategoryRepository::class);
         $this->app->bind(CourseRepositoryInterface::class, CourseRepository::class);
         $this->app->bind(AnnouncementRepositoryInterface::class, AnnouncementRepository::class);
+        $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
+        $this->app->bind(StudentRepositoryInterface::class, StudentRepository::class);
+        $this->app->bind(AdminRepositoryInterface::class, AdminRepository::class);
+        $this->app->bind(OrganizerRepositoryInterface::class, OrganizerRepository::class);
+        $this->app->bind(TeacherRepositoryInterface::class, TeacherRepository::class);
     }
 }

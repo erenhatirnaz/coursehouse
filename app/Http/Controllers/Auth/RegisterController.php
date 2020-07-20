@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Repositories\StudentRepositoryInterface;
 
 class RegisterController extends Controller
 {
@@ -22,13 +23,20 @@ class RegisterController extends Controller
     protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
+     * @var StudentRepositoryInterface
+     */
+    private $studentRepository;
+
+    /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(StudentRepositoryInterface $studentRepository)
     {
         $this->middleware('guest');
+
+        $this->studentRepository = $studentRepository;
     }
 
     /**
@@ -54,17 +62,18 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\User
+     * @return \App\Student
      */
     protected function create(array $data)
     {
-        return Student::create([
+        $student = [
             'name' => $data['name'],
             'surname' => $data['surname'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'phone_no' => $data['phone_no'],
             'birth_date' => $data['birth_date'],
-        ]);
+        ];
+        return $this->studentRepository->create($student);
     }
 }
