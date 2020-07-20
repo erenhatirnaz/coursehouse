@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class UserRepository extends BaseRepository implements UserRepositoryInterface
 {
     /**
-     * UserRepository contructor.
+     * UserRepository constructor.
      *
      * @param User $model
      */
