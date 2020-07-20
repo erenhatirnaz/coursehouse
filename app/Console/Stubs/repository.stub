@@ -4,12 +4,11 @@ namespace App\Repositories;
 
 use App\MY_MODEL;
 use App\Repositories\MY_REPOSITORY_INTERFACE;
-use Illuminate\Support\Collection;
 
 class MY_REPOSITORY extends BaseRepository implements MY_REPOSITORY_INTERFACE
 {
     /**
-     * MY_REPOSITORY contructor.
+     * MY_REPOSITORY constructor.
      *
      * @param MY_MODEL $model
      */
