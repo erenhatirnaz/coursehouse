@@ -5,6 +5,7 @@ namespace App;
 use App\Teacher;
 use App\Organizer;
 use App\ClassRoom;
+use App\CourseStatus;
 use App\CourseCategory;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
@@ -13,6 +14,10 @@ class Course extends Model
 {
     protected $fillable = [
         'slug', 'name', 'description', 'image_path',
+    ];
+
+    protected $withCount = [
+        "classRooms"
     ];
 
     public function category()
@@ -46,6 +51,14 @@ class Course extends Model
             return $this->image_path;
         } else {
             return asset("img/courses/{$this->image_path}");
+        }
+    }
+    public function getStatusAttribute()
+    {
+        if ($this->class_rooms_count > 0) {
+            return CourseStatus::ACTIVE;
+        } else {
+            return CourseStatus::PASSIVE;
         }
     }
 }
