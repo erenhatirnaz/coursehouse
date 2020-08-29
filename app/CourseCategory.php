@@ -10,6 +10,8 @@ class CourseCategory extends Model
         'slug', 'name'
     ];
 
+    protected $withCount = [ 'courses' ];
+
     public function courses()
     {
         return $this->hasMany('App\Course');

@@ -9,6 +9,8 @@ class Teacher extends User
 {
     protected $table = "users";
 
+    protected $withCount = [ 'courses' ];
+
     public static function boot()
     {
         parent::boot();
