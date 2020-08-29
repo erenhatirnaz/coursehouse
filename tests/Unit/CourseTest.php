@@ -7,6 +7,7 @@ use App\Teacher;
 use App\ClassRoom;
 use App\Organizer;
 use Tests\TestCase;
+use App\CourseStatus;
 use App\CourseCategory;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
@@ -81,5 +82,40 @@ class CourseTest extends TestCase
         $course = factory(Course::class)->create();
 
         $this->assertStringStartsWith("https://", $course->image);
+    }
+
+    public function testItShouldBeReturnedWithClassRoomsCount()
+    {
+        $courseId = factory(Course::class)->create();
+        factory(ClassRoom::class, 4)->create(['course_id' => $courseId]);
+
+        $course = Course::first($courseId);
+        $this->assertNotEmpty($course);
+        $this->assertArrayHasKey("class_rooms_count", $course->toArray());
+        $this->assertEquals(4, $course->class_rooms_count);
+    }
+
+    public function testStatusAttributeShouldBeActiveWhenCourseHasAnyClassRoom()
+    {
+        $courseId = factory(Course::class)->create();
+        factory(ClassRoom::class)->create(['course_id' => $courseId]);
+        $course = Course::first($courseId);
+
+        $this->assertEquals(CourseStatus::ACTIVE, $course->status);
+    }
+
+    public function testStatusAttributeShouldBePassiveWhenCourseHasntAnyClassRoom()
+    {
+        $course = factory(Course::class)->create();
+
+        $this->assertEquals(CourseStatus::PASSIVE, $course->status);
+    }
+
+    public function testItShouldHasDescriptionSummaryAttribute()
+    {
+        $course = factory(Course::class)->make();
+
+        $this->assertNotEmpty($course->description_summary);
+        $this->assertStringEndsWith("(...)", $course->description_summary);
     }
 }
