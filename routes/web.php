@@ -10,9 +10,7 @@ Route::get('/search', function () {
 })->name('search');
 
 Route::name('course.')->group(function () {
-    Route::get('/course/explorer', function () {
-        return show_error(501, "Not implemented!");
-    })->name('explorer');
+    Route::get('/course/explorer', 'CourseController@index')->name('explorer');
     Route::get('/course/{course}', function () {
         return show_error(501, "Not implemented!");
     })->name('details');

@@ -1,5 +1,7 @@
 <?php
 
 return [
-    'no_course_yet' => "Henüz hiç kurs yok!",
+    'list_blank' => "Henüz hiç kurs yok!",
+
+    'results_founded' => "Aradığınız kriterlere uyan :count kurs bulundu!",
 ];
