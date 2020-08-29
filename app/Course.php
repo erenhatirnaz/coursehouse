@@ -53,6 +53,12 @@ class Course extends Model
             return asset("img/courses/{$this->image_path}");
         }
     }
+
+    public function getDescriptionSummaryAttribute()
+    {
+        return Str::words($this->description, 15, ' (...)');
+    }
+
     public function getStatusAttribute()
     {
         if ($this->class_rooms_count > 0) {

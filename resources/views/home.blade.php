@@ -129,7 +129,7 @@
                                     {{ $teacher->full_name }}
                                 </h6>
                                 @endforeach
-                                <p class="card-text">{{ $course->description }}</p>
+                                <p class="card-text">{{ $course->description_summary }}</p>
                             </div>
                             <div class="card-footer" style="transform: rotate(0);">
                                 <a class="btn btn-link btn-block stretched-link" href="{{ $course->link }}">
