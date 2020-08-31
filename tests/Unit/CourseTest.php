@@ -86,10 +86,10 @@ class CourseTest extends TestCase
 
     public function testItShouldBeReturnedWithClassRoomsCount()
     {
-        $courseId = factory(Course::class)->create();
+        $courseId = factory(Course::class)->create()->id;
         factory(ClassRoom::class, 4)->create(['course_id' => $courseId]);
 
-        $course = Course::first($courseId);
+        $course = Course::find($courseId);
         $this->assertNotEmpty($course);
         $this->assertArrayHasKey("class_rooms_count", $course->toArray());
         $this->assertEquals(4, $course->class_rooms_count);
@@ -97,10 +97,10 @@ class CourseTest extends TestCase
 
     public function testStatusAttributeShouldBeActiveWhenCourseHasAnyClassRoom()
     {
-        $courseId = factory(Course::class)->create();
+        $courseId = factory(Course::class)->create()->id;
         factory(ClassRoom::class)->create(['course_id' => $courseId]);
-        $course = Course::first($courseId);
 
+        $course = Course::find($courseId);
         $this->assertEquals(CourseStatus::ACTIVE, $course->status);
     }
 
