@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'all' => "Hepsi",
     'required' => "Gerekli",
     'see_all' => "Hepsini Gör",
     'details' => "Detaylar",
@@ -9,9 +10,22 @@ return [
     'quota' => "Kota",
     'deadline' => "Son Başvuru Tarihi",
     'price' => "Ücret",
+    'filters' => "Filtreler",
+    'active_filters' => "Aktif Filtreler",
+    'category' => "Kategori",
+    'categories' => "Kategoriler",
+    'status' => "Durum",
+    'teacher' => "Eğitmen",
+    'teachers' => "Eğitmenler",
+    'active' => "Aktif",
+    'passive' => "Pasif",
+    'apply' => "Uygula",
+    'clear' => "Temizle",
 
-    'courses' => "Kurslar",
+    'homepage' => "Ana sayfa",
+    "course_explorer" => "Kurs Gezgini",
     'announcements' => "Duyurular",
+    'courses' => "Kurslar",
 
     'application_title' => "CourseHouse — kurslarınızı yönetin",
     'application_name' => "CourseHouse",

@@ -149,6 +149,9 @@ return [
         'password' => "Parola",
         'phone_no' => "Telefon Numarası",
         'birth_date' => "Doğum Tarihi",
+        'category' => "Kategori",
+        'teacher.*' => "Eğitmen(ler)",
+        'status' => "Durum",
     ],
 
 ];

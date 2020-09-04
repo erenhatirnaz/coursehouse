@@ -151,6 +151,9 @@ return [
         'password' => "Password",
         'phone_no' => "Phone No",
         'birth_date' => "Birth Date",
+        'category' =>  "Category",
+        'teacher.*' => "Teacher(s)",
+        'status' =>    "Status",
     ],
 
 ];

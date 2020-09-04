@@ -43,4 +43,17 @@ class TeacherTest extends TestCase
         $this->assertEquals($course1->id, $teacher->courses[0]->id);
         $this->assertEquals($course2->id, $teacher->courses[1]->id);
     }
+
+    public function testItShouldBeReturnedWithCoursesCount()
+    {
+        $teacherId = factory(Teacher::class)->create()->id;
+        factory(Course::class, 3)->create()->each(function ($course) use ($teacherId) {
+            $course->teachers()->attach($teacherId);
+        });
+
+        $teacher = Teacher::find($teacherId);
+        $this->assertNotNull($teacher);
+        $this->assertArrayHasKey("courses_count", $teacher->toArray());
+        $this->assertEquals(3, $teacher->courses_count);
+    }
 }
