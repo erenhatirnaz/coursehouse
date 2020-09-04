@@ -67,7 +67,7 @@ class CourseExlorerTest extends TestCase
 
         $response = $this->get("/course/explorer");
 
-        // FIXME: Some first or last name may contains single quotation mark.
+        // FIXME(#12): Some first or last name may contains single quotation mark.
         //   Therefore, assertions don't match the expected values.
         //   Single Quotation Mark HTML Code: `&#039;`
         $response->assertStatus(200);
