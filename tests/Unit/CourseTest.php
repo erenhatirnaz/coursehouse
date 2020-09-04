@@ -113,7 +113,9 @@ class CourseTest extends TestCase
 
     public function testItShouldHasDescriptionSummaryAttribute()
     {
-        $course = factory(Course::class)->make();
+        $course = factory(Course::class)->make([
+            'description' => "foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz"
+        ]);
 
         // FIXME(#13): Sometimes Cource factory isn't creating long description.
         //   So `description_summary` isn't ends with `(...)`.
