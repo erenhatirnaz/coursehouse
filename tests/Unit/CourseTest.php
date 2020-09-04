@@ -115,6 +115,8 @@ class CourseTest extends TestCase
     {
         $course = factory(Course::class)->make();
 
+        // FIXME(#13): Sometimes Cource factory isn't creating long description.
+        //   So `description_summary` isn't ends with `(...)`.
         $this->assertNotEmpty($course->description_summary);
         $this->assertStringEndsWith("(...)", $course->description_summary);
     }
