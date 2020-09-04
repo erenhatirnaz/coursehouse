@@ -117,8 +117,6 @@ class CourseTest extends TestCase
             'description' => "foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz"
         ]);
 
-        // FIXME(#13): Sometimes Cource factory isn't creating long description.
-        //   So `description_summary` isn't ends with `(...)`.
         $this->assertNotEmpty($course->description_summary);
         $this->assertStringEndsWith("(...)", $course->description_summary);
     }
