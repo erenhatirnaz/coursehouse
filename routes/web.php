@@ -2,6 +2,10 @@
 
 Auth::routes(['verify' => true]);
 
+if (!session('locale')) {
+    session(['locale' => app()->getLocale()]);
+}
+
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/switchLocale', 'HomeController@changeLang')->name('switchLocale');
 

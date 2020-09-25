@@ -168,9 +168,10 @@
 </main>
 
 <footer class="footer text-center mt-3 p-3 bg-white shadow-sm">
-    <a href="{{ route('switchLocale', ['lang' => $newLanguage]) }}" class="btn btn-link text-muted">
-        {{ __('app.switch_language') }}
-    </a>
+    <form action="{{ route('switchLocale') }}" method="GET">
+        <input type="hidden" name="lang" value="{{ $newLanguage }}"/>
+        <button type="submit" class="btn btn-link text-muted"> {{ __('app.switch_language') }} </button>
+    </form>
 </footer>
 
 </div>
