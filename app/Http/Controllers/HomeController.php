@@ -63,8 +63,6 @@ class HomeController extends Controller
         }
 
         $request->session()->put('locale', $request->lang);
-        return empty($request->header('HTTP_REFERER'))
-                ? redirect()->home()
-                : redirect()->back();
+        return redirect()->back();
     }
 }
