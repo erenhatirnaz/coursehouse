@@ -48,12 +48,30 @@ class CourseRepositoryTest extends TestCase
         $this->assertEquals("foo", $course->name);
     }
 
+    public function testItShouldReturnACourseBySlug()
+    {
+        factory(Course::class)->create(['slug' => "foo-bar"]);
+
+        $course = $this->courses->showBySlug("foo-bar");
+
+        $this->assertNotEmpty($course);
+        $this->assertEquals("foo-bar", $course->slug);
+    }
+
     public function testItShouldThrowNotFoundExceptionIfGivenIdIsNotExists()
     {
         $this->expectException(ModelNotFoundException::class);
         $this->expectExceptionMessage("No query results for model [App\Course] 1");
 
         $this->courses->show(1);
+    }
+
+    public function testItShouldThrowNotFouncExceptionIfGivenSlugNotExists()
+    {
+        $this->expectException(ModelNotFoundException::class);
+        $this->expectExceptionMessage("No query results for model [App\Course] 'foo-bar-baz'");
+
+        $this->courses->showBySlug("foo-bar-baz");
     }
 
     public function testItShouldReturnAllCoursesWithRelatedEntities()
