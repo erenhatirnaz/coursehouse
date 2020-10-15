@@ -19,5 +19,5 @@ interface CourseRepositoryInterface
 
     public function show($id): ?Model;
 
-    public function showBySlug(string $slug): ?Model;
+    public function getBySlug(string $slug, array $withCount = []): ?Model;
 }
