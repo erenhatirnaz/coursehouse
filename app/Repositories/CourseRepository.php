@@ -27,7 +27,9 @@ class CourseRepository extends BaseRepository implements CourseRepositoryInterfa
             $course = $this->model->withCount($withCount)->firstWhere('slug', $slug);
         } catch (\BadMethodCallException $ex) {
             $relationName = substr(explode('::', $ex->getMessage())[1], 0, -2);
-            throw new RelationNotFoundException("Call to undefined relationship [{$relationName}] on model [App\Course].");
+            throw new RelationNotFoundException(
+                "Call to undefined relationship [{$relationName}] on model [App\Course]."
+            );
         }
         if (!$course) {
             throw new ModelNotFoundException("No query results for model [App\Course] '{$slug}'");
