@@ -50,4 +50,14 @@ class ClassRoomTest extends TestCase
         $this->assertTrue($classRoom->course()->exists());
         $this->assertEquals($course->id, $classRoom->course->id);
     }
+
+    public function testItShouldHasLinkAttribute()
+    {
+        $course = factory(Course::class)->create();
+        $classRoom = factory(ClassRoom::class)->create([ 'course_id' => $course->id ]);
+
+        $this->assertNotEmpty($classRoom);
+        $this->assertNotNull($classRoom->link);
+        $this->assertStringContainsString("/{$course->slug}/classrooms/{$classRoom->slug}", $classRoom->link);
+    }
 }
