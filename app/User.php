@@ -65,4 +65,12 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return "{$this->name} {$this->surname}";
     }
+
+    public function getProfilePhotoAttribute()
+    {
+        if (!$this->profile_photo_path) {
+            $this->profile_photo_path = "default-pp.png";
+        }
+        return asset("img/{$this->profile_photo_path}");
+    }
 }

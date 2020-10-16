@@ -60,13 +60,25 @@ class UserTest extends TestCase
         Notification::assertSentTo([$user], ResetPasswordEmail::class);
     }
 
-    public function testFullNameAttributeSouldConcatNameAndSurname()
+    public function testFullNameAttributeShouldConcatNameAndSurname()
     {
         $user = factory(User::class)->create([
             'name' => "Foo",
             "surname" => "Bar",
         ]);
 
+        $this->assertNotNull($user->full_name);
         $this->assertEquals("Foo Bar", $user->full_name);
+    }
+
+    public function testItShouldHasProfilePhotoAttribute()
+    {
+        $userId = factory(User::class)->create(['profile_photo_path' => "foobar.jpg"])->id;
+
+        $user = User::find($userId);
+
+        $this->assertNotEmpty($user);
+        $this->assertNotNull($user->profile_photo);
+        $this->assertStringContainsString("img/foobar.jpg", $user->profile_photo);
     }
 }
