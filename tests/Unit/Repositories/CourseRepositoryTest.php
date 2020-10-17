@@ -3,6 +3,7 @@
 namespace Tests\Unit\Repositories;
 
 use App\Course;
+use App\Teacher;
 use Tests\TestCase;
 use InvalidArgumentException;
 use Illuminate\Database\QueryException;
@@ -48,12 +49,54 @@ class CourseRepositoryTest extends TestCase
         $this->assertEquals("foo", $course->name);
     }
 
+    public function testItShouldReturnACourseBySlug()
+    {
+        factory(Course::class)->create(['slug' => "foo-bar"]);
+
+        $course = $this->courses->getBySlug("foo-bar");
+
+        $this->assertNotEmpty($course);
+        $this->assertEquals("foo-bar", $course->slug);
+    }
+
+    public function testItShouldHaveCountOfGivenRelations()
+    {
+        $courseId = factory(Course::class)->create(['slug' => "foo-bar"])->id;
+        factory(Teacher::class, 2)->create()->each(function ($teacher) use ($courseId) {
+            $teacher->courses()->attach($courseId);
+        });
+
+        $course = $this->courses->getBySlug('foo-bar', ['teachers']);
+
+        $this->assertNotEmpty($course);
+        $this->assertArrayHasKey('teachers_count', $course->toArray());
+        $this->assertEquals(2, $course->teachers_count);
+    }
+
     public function testItShouldThrowNotFoundExceptionIfGivenIdIsNotExists()
     {
         $this->expectException(ModelNotFoundException::class);
         $this->expectExceptionMessage("No query results for model [App\Course] 1");
 
         $this->courses->show(1);
+    }
+
+    public function testItShouldThrowNotFouncExceptionIfGivenSlugNotExists()
+    {
+        $this->expectException(ModelNotFoundException::class);
+        $this->expectExceptionMessage("No query results for model [App\Course] 'foo-bar-baz'");
+
+        $this->courses->getBySlug("foo-bar-baz");
+    }
+
+    public function testItShouldThrowExceptionIfGivenReleationsNotExists()
+    {
+        factory(Course::class)->create(['slug' => "foo-bar"]);
+
+        $this->expectException(RelationNotFoundException::class);
+        $this->expectExceptionMessage("Call to undefined relationship [foo-bar-baz] on model [App\Course].");
+
+        $this->courses->getBySlug("foo-bar", ["foo-bar-baz"]);
     }
 
     public function testItShouldReturnAllCoursesWithRelatedEntities()

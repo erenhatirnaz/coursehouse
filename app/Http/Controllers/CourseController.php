@@ -83,6 +83,13 @@ class CourseController extends Controller
         ]);
     }
 
+    public function show(string $slug)
+    {
+        $course = $this->courseRepository->getBySlug($slug, ['teachers']);
+
+        return view('course.details', compact('course'));
+    }
+
     private function validateFilters(Request $req)
     {
         $rules = [

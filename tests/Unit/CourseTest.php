@@ -4,9 +4,11 @@ namespace Tests\Unit;
 
 use App\Course;
 use App\Teacher;
+use App\Student;
 use App\ClassRoom;
 use App\Organizer;
 use Tests\TestCase;
+use App\Announcement;
 use App\CourseStatus;
 use App\CourseCategory;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -119,5 +121,41 @@ class CourseTest extends TestCase
 
         $this->assertNotEmpty($course->description_summary);
         $this->assertStringEndsWith("(...)", $course->description_summary);
+    }
+
+    public function testItShouldHasGoToAnnouncementsLinkAttribute()
+    {
+        $course = factory(Course::class)->make();
+
+        $this->assertNotEmpty($course);
+        $this->assertNotNull($course->go_to_announcements_link);
+        $this->assertStringContainsString(
+            "/announcement/explorer?course={$course->slug}",
+            $course->go_to_announcements_link
+        );
+    }
+
+    public function testItShouldHasStudentsCountAttribute()
+    {
+        $course = factory(Course::class)->create();
+        $classRoomId = factory(ClassRoom::class)->create(['course_id' => $course->id]);
+        factory(Student::class, 4)->create()->each(function ($student) use ($classRoomId) {
+            $student->classRooms()->attach($classRoomId);
+        });
+
+        $this->assertNotEmpty($course);
+        $this->assertNotNull($course->students_count);
+        $this->assertEquals(4, $course->students_count);
+    }
+
+    public function testItShouldHasAnnouncementsCountAttribute()
+    {
+        $course = factory(Course::class)->create();
+        $classRoomId = factory(ClassRoom::class)->create(['course_id' => $course->id]);
+        factory(Announcement::class, 5)->create([ 'class_room_id' => $classRoomId ]);
+
+        $this->assertNotEmpty($course);
+        $this->assertNotNull($course->announcements_count);
+        $this->assertEquals(5, $course->announcements_count);
     }
 }

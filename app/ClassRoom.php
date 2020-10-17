@@ -28,4 +28,9 @@ class ClassRoom extends Model
     {
         return $this->belongsTo(Course::class);
     }
+
+    public function getLinkAttribute()
+    {
+        return route('course.classroom.details', ['course' => $this->course->slug, 'classRoom' => $this->slug]);
+    }
 }

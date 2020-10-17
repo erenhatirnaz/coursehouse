@@ -67,4 +67,19 @@ class Course extends Model
             return CourseStatus::PASSIVE;
         }
     }
+
+    public function getGoToAnnouncementsLinkAttribute()
+    {
+        return route('announcement.explorer', ['course' => $this->slug]);
+    }
+
+    public function getStudentsCountAttribute()
+    {
+        return $this->classRooms()->withCount('students')->pluck('students_count')->sum();
+    }
+
+    public function getAnnouncementsCountAttribute()
+    {
+        return $this->classRooms()->withCount('announcements')->pluck('announcements_count')->sum();
+    }
 }

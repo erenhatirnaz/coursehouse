@@ -7,7 +7,7 @@ return [
 
     'name' => "Name",
     'surname' => "Surname",
-    'email' => "E-mail Address",
+    'email' => "E-Mail Address",
     'password' => "Password",
     'confirm_password' => "Confirm Password",
     'phone_no' => "Phone Number",

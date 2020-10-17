@@ -18,4 +18,6 @@ interface CourseRepositoryInterface
     public function delete($ids);
 
     public function show($id): ?Model;
+
+    public function getBySlug(string $slug, array $withCount = []): ?Model;
 }
