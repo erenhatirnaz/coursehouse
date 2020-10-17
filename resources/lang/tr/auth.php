@@ -7,7 +7,7 @@ return [
 
     'name' => "Ad",
     'surname' => "Soyad",
-    'email' => "E-posta Adresi",
+    'email' => "E-Posta Adresi",
     'password' => "Parola",
     'confirm_password' => "Parola (tekrar)",
     'phone_no' => "Telefon Numarası",
