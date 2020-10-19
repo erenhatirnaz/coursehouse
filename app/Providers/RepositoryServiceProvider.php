@@ -21,6 +21,8 @@ use App\Repositories\OrganizerRepositoryInterface;
 use App\Repositories\OrganizerRepository;
 use App\Repositories\TeacherRepositoryInterface;
 use App\Repositories\TeacherRepository;
+use App\Repositories\ClassRoomRepositoryInterface;
+use App\Repositories\ClassRoomRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -40,5 +42,6 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(AdminRepositoryInterface::class, AdminRepository::class);
         $this->app->bind(OrganizerRepositoryInterface::class, OrganizerRepository::class);
         $this->app->bind(TeacherRepositoryInterface::class, TeacherRepository::class);
+        $this->app->bind(ClassRoomRepositoryInterface::class, ClassRoomRepository::class);
     }
 }
