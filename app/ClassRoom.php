@@ -9,10 +9,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class ClassRoom extends Model
 {
-    protected $fillable = [
-        'slug', 'name', 'description', 'age_range_min', 'age_range_max', 'quota',
-        'lesson_period',
-    ];
+    /**
+     * All fields are fillable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
 
     public function announcements()
     {
